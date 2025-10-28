@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: appset-repro
+  namespace: appset-repro
+spec:
+  destination:
+    namespace: appset-repro
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - ref: values
+      repoURL: >-
+        git@github.com:agiorgirh/appset-repro.git
+      targetRevision: main
+    - chart: appset-repro
+      helm:
+        ignoreMissingValueFiles: true
+        parameters:
+          - name: ClusterName
+            value: aleocp
+        releaseName: appset-repro
+        skipCrds: true
+        valueFiles:
+          - $values/appset-repro/defaults.yaml
+          - $values/appset-repro/values.yaml
+      path: appset-repro
+      repoURL: quay.io/rh_ee_algiorgi/appset-repro
+      targetRevision: 0.1.0
