@@ -20,10 +20,9 @@ spec:
         releaseName: appset-repro
         skipCrds: true
         valueFiles:
-          - $values/appset-repro/base.yaml
-          - $values/appset-repro/defaults.yaml
-          - $values/appset-repro/values.yaml
+          - $values/values.yaml
+          - $values/values_overrides.yaml
       path: appset-repro
       repoURL: quay.io/rh_ee_algiorgi
-      targetRevision: 0.1.0
+      targetRevision: 0.2.0
   project: default
