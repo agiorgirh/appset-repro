@@ -1,4 +1,3 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,11 +7,9 @@ spec:
   destination:
     namespace: appset-repro
     server: https://kubernetes.default.svc
-  project: default
   sources:
     - ref: values
-      repoURL: >-
-        git@github.com:agiorgirh/appset-repro.git
+      repoURL: https://github.com/agiorgirh/appset-repro.git
       targetRevision: main
     - chart: appset-repro
       helm:
@@ -23,8 +20,10 @@ spec:
         releaseName: appset-repro
         skipCrds: true
         valueFiles:
+          - $values/appset-repro/base.yaml
           - $values/appset-repro/defaults.yaml
           - $values/appset-repro/values.yaml
       path: appset-repro
-      repoURL: quay.io/rh_ee_algiorgi/appset-repro
+      repoURL: quay.io/rh_ee_algiorgi
       targetRevision: 0.1.0
+  project: default
